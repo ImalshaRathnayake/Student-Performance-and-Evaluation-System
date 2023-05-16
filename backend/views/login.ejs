@@ -1,12 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>login</h1>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Login - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+  </head>
+
+  <body class="bg-gradient-primary" style="background: rgb(255, 255, 255)">
+    <div class="container">
+      <div
+        class="row justify-content-center"
+        style="background: var(--bs-white)"
+      >
+        <div class="col-md-9 col-lg-12 col-xl-10" style="background: #ffffff">
+          <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-lg-6 d-none d-lg-flex">
+                  <div
+                    class="flex-grow-1 bg-login-image"
+                    style="
+                      background: url('assets/img/dogs/TU%20study%20destination%20.png')
+                          center / auto no-repeat,
+                        #871808;
+                    "
+                  ></div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h4 class="text-dark mb-4">
+                        <img
+                          class="img-fluid"
+                          src="assets/img/usjp-logo.png"
+                          width="63"
+                          height="63"
+                        />
+                      </h4>
+                      <h4
+                        class="text-dark mb-2"
+                        style="text-align: center; font-weight: bold"
+                      >
+                        Performance and Evolution System
+                      </h4>
+                      <h4
+                        class="text-dark mb-2"
+                        style="font-size: 20px; text-align: center"
+                      >
+                        Faculty of Applied Sciences
+                      </h4>
+                      <h4
+                        class="text-dark mb-2"
+                        style="font-size: 20px; text-align: center"
+                      >
+                        <span
+                          style="
+                            color: rgba(
+                              var(--bs-dark-rgb),
+                              var(--bs-text-opacity)
+                            );
+                          "
+                          >University of Sri Jayewardenepura</span
+                        >
+                      </h4>
+                      <h4 class="text-dark mb-4" style="font-weight: bold">
+                        Welcome Back!
+                      </h4>
+                    </div>
+                    <form id="loginForm" class="user">
+                      <div class="mb-3">
+                        <input
+                          class="form-control form-control-user"
+                          type="email"
+                          id="Email"
+                          name="email"
+                          aria-describedby="emailHelp"
+                          autocomplete="off"
+                          placeholder="Enter Email Address..."
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <input
+                          class="form-control form-control-user"
+                          type="password"
+                          id="Password"
+                          name="password"
+                          placeholder="Password"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <div class="custom-control custom-checkbox small">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input custom-control-input"
+                              type="checkbox"
+                              id="formCheck"
+                            /><label
+                              class="form-check-label custom-control-label"
+                              for="formCheck-1"
+                              >Remember Me</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-primary d-block btn-user w-100"
+                        id="btnLogin"
+                        type="submit"
+                        style="background: #871808">
+                        Login
+                      </button>
+                      <hr />
+                      <hr />
+                    </form>
+                    <div class="text-center">
+                      <a
+                        id="linkForgetPassword_login"
+                        href="http://localhost:8000/forgetpassword"
+                        class="small"
+                        style="color: rgb(133, 135, 150)"
+                        >Forgot Password?</a>
+                    </div>
+                    <div class="text-center">
+                      <a
+                        id="linkSignup_login"
+                        href="http://localhost:8000/signup"
+                        class="small"
+                        style="color: rgb(133, 135, 150)"
+                        >Create an Account!</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      form.addEventListener("submit", loginUser);
+
+      async function loginUser(event) {
+        event.preventDefault();
+        const email = document.getElementById("Email").value;
+        const password = document.getElementById("Password").value;
+
+        const result = await fetch("/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }).then((res) => res.json());
+        console.log(result);
+        if (result.status === "error") {
+          alert(result.message);
+        } else {
+            console.log('got the token',result.data)
+          alert("Login Success");
+        }
+      }
+    </script>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+  </body>
 </html>

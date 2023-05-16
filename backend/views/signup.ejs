@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Register - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+    />
+  </head>
+
+  <body class="bg-gradient-primary" style="background: rgb(255, 255, 255)">
+    <div class="container mt-5" style="background: #ffffff">
+      <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-5 d-none d-lg-flex">
+              <div
+                class="flex-grow-1 bg-register-image"
+                style="
+                  background: url('assets/img/dogs/TU%20study%20destination%20.png')
+                      center / auto no-repeat,
+                    #871808;
+                "
+              ></div>
+            </div>
+            <div class="col-lg-7">
+              <div class="p-5">
+                <div class="text-center">
+                  <h4 class="text-dark mb-4">Create an Account!</h4>
+                </div>
+                <form id="signupForm" class="user">
+                  <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="FirstName"
+                        name="first_name"
+                        placeholder="First Name"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="col-sm-6">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="LastName"
+                        name="last_name"
+                        placeholder="Last Name"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="RegistrationNumber"
+                        name="registration_number"
+                        placeholder="Registration Number"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="col-sm-6">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="IndexNumber"
+                        name="index_number"
+                        placeholder="Index Number"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      class="form-control form-control-user mb-3"
+                      type="email"
+                      id="Email"
+                      name="email"
+                      placeholder="Email Address"
+                      aria-describedby="emailHelp"
+                      autocomplete="off"
+                    />
+                    <input
+                      class="form-control form-control-user"
+                      type="text"
+                      id="PhoneNumber"
+                      name="phone"
+                      placeholder="Phone Number"
+                      autocomplete="off"
+                    />
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input
+                        class="form-control form-control-user"
+                        type="password"
+                        id="Password"
+                        name="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <div class="col-sm-6">
+                      <input
+                        class="form-control form-control-user"
+                        type="password"
+                        id="RepeatPassword"
+                        name="re_enter_password"
+                        placeholder="Repeat Password"
+                        style="color: rgb(133, 135, 150)"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    class="btn btn-primary d-block btn-user w-100"
+                    id="btnSignUp"
+                    type="submit"
+                    style="background: #871808"
+                  >
+                    Register Account
+                  </button>
+                  <hr />
+                  <hr />
+                </form>
+                <div class="text-center"></div>
+                <div class="text-center" style="color: rgb(133, 135, 150)">
+                  <a
+                    id="linkLogin_SignUp"
+                    href="http://localhost:8000/login"
+                    class="small"
+                    style="color: rgb(133, 135, 150)"
+                    >Already have an account? Login!</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const form = document.getElementById("signupForm");
+      form.addEventListener("submit", registerUser);
+
+      async function registerUser(event) {
+        event.preventDefault();
+        const first_name = document.getElementById("FirstName").value;
+        const last_name = document.getElementById("LastName").value;
+        const registration_number =
+          document.getElementById("RegistrationNumber").value;
+        const index_number = document.getElementById("IndexNumber").value;
+        const email = document.getElementById("Email").value;
+        const phone = document.getElementById("PhoneNumber").value;
+        const password = document.getElementById("Password").value;
+        const re_enter_password =
+          document.getElementById("RepeatPassword").value;
+
+        const result = await fetch("/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name,
+            last_name,
+            registration_number,
+            index_number,
+            email,
+            phone,
+            password,
+            re_enter_password,
+          }),
+        }).then((res) => res.json());
+        console.log(result);
+        if (result.status === "error") {
+          alert(result.message);
+        } else {
+          alert("User created");
+        }
+      }
+    </script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+  </body>
+</html>
